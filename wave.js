@@ -1,6 +1,4 @@
-import {
-    Point
-} from './point'
+import {Point} from "./point.js";
 
 export class Wave {
     constructor() {
@@ -10,8 +8,8 @@ export class Wave {
         this.stageWidth = stageWidth;
         this.stageHeight = stageHeight;
 
-        this.clientX = stageWidth / 2;
-        this.clientY = stageHeight / 2;
+        this.clientX = this.stageWidth / 2;
+        this.clientY = this.stageHeight / 2;
 
         this.init();
     }
@@ -25,7 +23,7 @@ export class Wave {
         ctx.fillStyle = '#ff0000';
 
         this.point.update();
-        this.arc(this.point.x, this.point.y, 30, 0, 2 * Math.PI);
-        this.fill();
+        ctx.arc(this.point.x, this.point.y, 30, 0, 2 * Math.PI);
+        ctx.fill();
     }
 }

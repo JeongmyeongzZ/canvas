@@ -1,4 +1,4 @@
-import {Wave} from "./module/wave";
+import {Wave} from "./wave.js";
 
 class App {
     constructor() {
