@@ -1,4 +1,5 @@
 const {resolve} = require('path')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -6,7 +7,10 @@ module.exports = {
         scroll: './scroll/app.js',
     },
     output: {
-        filename: './[name].js',
+        filename: './[name].[contenthash].js',
         path: resolve(__dirname, 'dist')
-    }
+    },
+    plugins: [
+        new CleanWebpackPlugin(),
+    ],
 }
