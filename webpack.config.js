@@ -1,9 +1,9 @@
 const { resolve } = require('path')
 
 module.exports = {
-    entry: './app.js',
+    entry: './wave/app.js',
     output: {
-        filename: 'app.js',
+        filename: './wave/app.js',
         path: resolve(__dirname, 'dist')
     }
 }
