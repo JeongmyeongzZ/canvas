@@ -1,5 +1,6 @@
 const {resolve} = require('path')
-// const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require("clean-webpack-plugin")
 
 module.exports = {
     entry: {
@@ -7,26 +8,26 @@ module.exports = {
         scroll: './scroll/app.js',
     },
     output: {
-        filename: './[name].js',
+        filename: '[name].js',
         path: resolve(__dirname, 'dist')
     },
-    // resolve: {
-    //     alias: {
-    //         "TweenLite": resolve('node_modules', 'gsap/src/uncompressed/TweenLite.js'),
-    //         "TweenMax": resolve('node_modules', 'gsap/src/uncompressed/TweenMax.js'),
-    //         "TimelineLite": resolve('node_modules', 'gsap/src/uncompressed/TimelineLite.js'),
-    //         "TimelineMax": resolve('node_modules', 'gsap/src/uncompressed/TimelineMax.js'),
-    //         "ScrollMagic": resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/ScrollMagic.js'),
-    //         "animation.gsap": resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/plugins/animation.gsap.js'),
-    //         "debug.addIndicators": resolve('node_modules', 'scrollmagic/scrollmagic/uncompressed/plugins/debug.addIndicators.js')
-    //     }
-    // }
-    // optimization: {
-    //     splitChunks: {
-    //         chunks: 'all',
-    //     },
-    // },
-    // plugins: [
-    //     new HtmlWebpackPlugin(),
-    // ],
+    plugins: [
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            template: "./index.html",
+            filename: 'index.html'
+        }),
+        new HtmlWebpackPlugin({
+            template: './scroll/index.html',
+            filename: './scroll/index.html',
+            hash: true,
+            chunks: ['scroll']
+        }),
+        new HtmlWebpackPlugin({
+            template: './wave/index.html',
+            filename: './wave/index.html',
+            hash: true,
+            chunks: ['wave']
+        }),
+    ],
 }
