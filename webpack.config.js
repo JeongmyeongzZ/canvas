@@ -13,21 +13,5 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({
-            template: "./index.html",
-            filename: 'index.html'
-        }),
-        new HtmlWebpackPlugin({
-            template: './scroll/index.html',
-            filename: './scroll/index.html',
-            hash: true,
-            chunks: ['scroll']
-        }),
-        new HtmlWebpackPlugin({
-            template: './wave/index.html',
-            filename: './wave/index.html',
-            hash: true,
-            chunks: ['wave']
-        }),
     ],
 }

@@ -37,4 +37,9 @@ section h1 {
 
 .second {
   height: 100vh;
+  max-width: 100vw;
+}
+
+.some-area {
+  height: 100vh;
 }

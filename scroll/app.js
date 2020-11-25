@@ -1,58 +1,49 @@
-import * as ScrollMagic from "scrollmagic"; // Or use scrollmagic-with-ssr to avoid server rendering problems
-import { gsap, TweenMax, TimelineMax } from "gsap"; // Also works with TweenLite and TimelineLite
-import { ScrollMagicPluginGsap } from "scrollmagic-plugin-gsap";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-ScrollMagicPluginGsap(ScrollMagic, TweenMax, TimelineMax);
+gsap.registerPlugin(ScrollTrigger);
 
-const intro = document.querySelector('.intro');
-const video = intro.querySelector('video');
-
-const controller = new ScrollMagic.Controller();
-
-let scene = new ScrollMagic.Scene({
-    duration: 3500,
-    triggerElement: intro,
-    triggerHook: 0
-})
-    .setPin(intro)
-    .addTo(controller);
-
-const text = intro.querySelector('h1');
-const textAnim = TweenMax.fromTo(text, 1, {opacity: 0}, {opacity: 1});
-
-new ScrollMagic.Scene({
-    duration: 3000,
-    triggerElement: intro,
-    triggerHook: 0
-})
-    .setTween(textAnim)
-    .addTo(controller);
-
-let accelAmount = 0.1;
-let scrollPosition = 0;
-let delay = 1;
-
-scene.on('update', e => {
-    scrollPosition = e.scrollPos / 1000;
-});
-
-setInterval(() => {
-    delay += (scrollPosition - delay) * accelAmount;
-
-    video.currentTime = delay;
-}, 33);
+// const intro = document.querySelector('.intro');
+// const video = intro.querySelector('video');
+//
+// const controller = new ScrollMagic.Controller();
+//
+// let scene = new ScrollMagic.Scene({
+//     duration: 3500,
+//     triggerElement: intro,
+//     triggerHook: 0
+// })
+//     .setPin(intro)
+//     .addTo(controller);
+//
+// const text = intro.querySelector('h1');
+// const textAnim = TweenMax.fromTo(text, 1, {opacity: 0}, {opacity: 1});
+//
+// new ScrollMagic.Scene({
+//     duration: 3000,
+//     triggerElement: intro,
+//     triggerHook: 0
+// })
+//     .setTween(textAnim)
+//     .addTo(controller);
+//
+// let accelAmount = 0.1;
+// let scrollPosition = 0;
+// let delay = 1;
+//
+// scene.on('update', e => {
+//     scrollPosition = e.scrollPos / 1000;
+// });
+//
+// setInterval(() => {
+//     delay += (scrollPosition - delay) * accelAmount;
+//
+//     video.currentTime = delay;
+// }, 33);
 
 
 const second = document.querySelector('.second');
 const ctx = second.getContext('2d');
-
-let scene3 = new ScrollMagic.Scene({
-    duration: 3500,
-    triggerElement: second,
-    triggerHook: 0
-})
-    .setPin(intro)
-    .addTo(controller);
 
 const frameCount = 147;
 const currentFrame = index => (
@@ -74,7 +65,7 @@ gsap.to(airpods, {
     frame: frameCount - 1,
     snap: "frame",
     scrollTrigger: {
-        scrub: 0.5
+        scrub: 0.5,
     },
     onUpdate: render
 });
@@ -82,6 +73,10 @@ gsap.to(airpods, {
 images[0].onload = render;
 
 function render() {
-    ctx.clearRect(0, 0, document.body.clientWidth, document.body.clientHeight);
-    ctx.drawImage(images[airpods.frame], 0, 0);
+    const image = images[airpods.frame];
+    const stageWidth = document.body.clientWidth;
+    const stageHeight = document.body.clientHeight;
+
+    ctx.clearRect(0, 0, stageWidth, stageHeight);
+    ctx.drawImage(image, 0, 0);
 }
