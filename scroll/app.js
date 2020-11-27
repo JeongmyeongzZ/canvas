@@ -65,7 +65,11 @@ gsap.to(airpods, {
     frame: frameCount - 1,
     snap: "frame",
     scrollTrigger: {
-        scrub: 0.5,
+        trigger: second,
+        pin: true,
+        start: "top top",
+        end: "+=500",
+        scrub: 1,
     },
     onUpdate: render
 });
@@ -77,6 +81,10 @@ function render() {
     const stageWidth = document.body.clientWidth;
     const stageHeight = document.body.clientHeight;
 
+    var scale = Math.min(second.width / image.width, second.height / image.height);
+    // get the top left position of the image
+    var x = (second.width / 2) - (image.width / 2) * scale;
+    var y = (second.height / 2) - (image.height / 2) * scale;
     ctx.clearRect(0, 0, stageWidth, stageHeight);
-    ctx.drawImage(image, 0, 0);
+    ctx.drawImage(image, x, y, image.width * scale, image.height * scale);
 }
